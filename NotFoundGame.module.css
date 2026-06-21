@@ -26,11 +26,16 @@
 }
 
 /* ---------- HUD strip ---------- */
+/* The three readouts sit in a horizontal band (grid row 1); the stage spans the
+   full width below them (row 2) and fills the remaining height of the bounded
+   play area the shell's .canvasSlot establishes. */
 .hud {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  grid-template-rows: auto 1fr;
   flex: 1 1 auto;
   min-height: 0;
+  position: relative;
 }
 
 .hudXp,
@@ -39,31 +44,33 @@
   font-family: var(--font-mono);
 }
 
-/* The three HUD readouts sit in a row above the stage. We lay them out with a
-   small flex header band, then the stage fills the rest. */
-.hud {
-  position: relative;
-}
-
 .hudXp {
-  order: 1;
+  grid-column: 1;
+  grid-row: 1;
 }
 .hudCell {
-  order: 2;
+  grid-column: 2;
+  grid-row: 1;
 }
 .hudCellNarrow {
-  order: 3;
+  grid-column: 3;
+  grid-row: 1;
 }
 .stage {
-  order: 4;
+  grid-column: 1 / -1;
+  grid-row: 2;
 }
 
-/* HUD cells share a top band: render them inline via a wrapping rule. */
+/* HUD cells share a top band with a divider under it and between cells. */
 .hudXp,
 .hudCell,
 .hudCellNarrow {
   padding: var(--space-2) var(--space-4);
   border-bottom: var(--border);
+}
+.hudXp,
+.hudCell {
+  border-right: var(--border);
 }
 
 .hudLabel {

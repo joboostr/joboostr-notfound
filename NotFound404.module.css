@@ -186,6 +186,13 @@
 }
 .canvasSlot {
   border-top: var(--border);
+  /* Bounded play area: the game (<Game404>) is flex:1 1 auto and fills this
+     height-constrained flex column. Without a height the game would collapse
+     into normal flow and sprawl below the card. Only applies when the slot has
+     content (the :empty rule above hides it on the no-JS/mobile static floor). */
+  display: flex;
+  flex-direction: column;
+  height: 440px;
 }
 
 /* ---------- responsive: 375px static shell ---------- */
