@@ -102,8 +102,11 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--space-4);
-  padding: var(--space-7) var(--space-5);
+  gap: var(--space-3);
+  /* Compact vertical padding so the 404 copy stays a slim header band and the
+     game (below) gets the majority of the card height. */
+  padding: var(--space-5) var(--space-5);
+  flex: 0 0 auto;
 }
 
 /* Big "404" numeral — fixed-px Archivo-900, tight negative tracking (canonical
@@ -112,7 +115,7 @@
 .bigNumber {
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: 110px;
+  font-size: 76px;
   line-height: 0.82;
   letter-spacing: -0.05em;
   color: var(--ink);
@@ -202,7 +205,7 @@
    .canvasSlot:empty hidden) is unaffected: the card stays content-sized + compact. */
 .card:has(.canvasSlot:not(:empty)) {
   height: calc(100dvh - 2 * var(--space-4));
-  max-height: 860px;
+  max-height: 1040px;
 }
 
 /* ---------- responsive: 375px static shell ---------- */
