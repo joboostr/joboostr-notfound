@@ -34,8 +34,14 @@
   --orange-dark: #e85c20;
   --orange-soft: #fff4ec;
 
-  /* status accent used only as a game/HUD highlight token (W-2 may reuse) */
+  /* status accents used only by the W-2 canvas game / HUD (not the static shell).
+     --gold = the rare "dream job" + mid-patience bar; --good = healthy-patience
+     green; --bad = rejection red / low-patience bar + danger vignette. Values
+     copied from the prototype (prototypes/404-game.html: --good #34d399,
+     --bad #ef4444) so the ported engine reads identically. */
   --gold: #ffd23f; /* = design-v3 --yellow / --status-interview */
+  --good: #34d399; /* game-only: healthy patience (green) */
+  --bad:  #ef4444; /* game-only: rejection / low patience (red) */
 
   /* borders + hard offset shadows (zero blur — brutalist signature) */
   --border:      3px solid var(--ink);

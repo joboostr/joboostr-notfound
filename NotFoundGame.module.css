@@ -1,0 +1,273 @@
+/* NotFoundGame.module.css — the canvas game island styles (W-2).
+ *
+ * Ported from prototypes/404-game.html (the .g-header / .hud / .stage / .overlay
+ * / .btn / .shake rules). ZERO literal hex except the ONE sanctioned white-on-
+ * orange brand exception (#fff on the orange CTA, mirroring NotFound404.module
+ * .css). Every color / spacing / shadow / border value is a design token from
+ * notfound-tokens.css (which travels with the package).
+ *
+ * Neo-brutalism: 3px ink borders + hard zero-blur offset shadows; never a soft
+ * drop shadow. Motion rules (.shake) are wrapped in
+ * @media (prefers-reduced-motion: no-preference) so reduced-motion users get a
+ * still UI even if (defensively) the card is ever shaken. The game itself never
+ * mounts under reduced-motion (the engine + Game404Dynamic both gate it), so this
+ * CSS is belt-and-suspenders.
+ *
+ * Status colors used by the game (--good green / --bad red) are game-only tokens
+ * added to notfound-tokens.css for this island. */
+
+.gameCard {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* ---------- HUD strip ---------- */
+.hud {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.hudXp,
+.hudCell,
+.hudCellNarrow {
+  font-family: var(--font-mono);
+}
+
+/* The three HUD readouts sit in a row above the stage. We lay them out with a
+   small flex header band, then the stage fills the rest. */
+.hud {
+  position: relative;
+}
+
+.hudXp {
+  order: 1;
+}
+.hudCell {
+  order: 2;
+}
+.hudCellNarrow {
+  order: 3;
+}
+.stage {
+  order: 4;
+}
+
+/* HUD cells share a top band: render them inline via a wrapping rule. */
+.hudXp,
+.hudCell,
+.hudCellNarrow {
+  padding: var(--space-2) var(--space-4);
+  border-bottom: var(--border);
+}
+
+.hudLabel {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-soft);
+  font-weight: 700;
+}
+.hudVal {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--ink);
+}
+.hudBest {
+  margin-top: var(--space-1);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+}
+
+.bar {
+  margin-top: var(--space-1);
+  height: 11px;
+  background: var(--bg);
+  border: var(--border-thin);
+  position: relative;
+  overflow: hidden;
+}
+.bar > span {
+  position: absolute;
+  inset: 0;
+  width: 0%;
+  background: var(--orange);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .bar > span {
+    transition: width 0.18s ease;
+  }
+}
+
+/* ---------- stage = canvas fills leftover height ---------- */
+.stage {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 140px;
+}
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: var(--bg);
+  touch-action: none;
+  cursor: none;
+}
+.danger {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .danger {
+    transition: box-shadow 0.25s ease;
+  }
+}
+
+/* ---------- overlays (start / game-over) ---------- */
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  /* a translucent veil over the canvas — derived from the card surface so it
+     stays on-token. */
+  background: var(--bg-card);
+}
+.overlay[hidden] {
+  display: none;
+}
+.oTitle {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 40px;
+  letter-spacing: -0.03em;
+  line-height: 0.9;
+  color: var(--ink);
+}
+.oSub {
+  font-size: 14px;
+  color: var(--ink-soft);
+  max-width: 42ch;
+  line-height: 1.45;
+}
+.keys {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-soft);
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.keys kbd {
+  background: var(--bg-card);
+  border: var(--border-thin);
+  box-shadow: var(--shadow-xs);
+  padding: 3px 8px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.overActions {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.overBest {
+  color: var(--orange-dark);
+}
+
+/* ---------- buttons (mirror the shell's home CTA idiom) ---------- */
+.btn {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 16px;
+  border: var(--border);
+  background: var(--orange);
+  color: #fff; /* SANCTIONED white-on-orange brand exception */
+  padding: var(--space-3) var(--space-5);
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  text-decoration: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .btn {
+    transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.08s ease;
+  }
+}
+.btn:hover {
+  background: var(--orange-dark);
+  color: #fff; /* keep white on darker orange (same sanctioned exception) */
+}
+@media (prefers-reduced-motion: no-preference) {
+  .btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-lg);
+  }
+  .btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: var(--shadow-xs);
+  }
+}
+.btn:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 3px;
+}
+.btnGhost {
+  background: var(--bg-card);
+  color: var(--ink);
+}
+.btnGhost:hover {
+  background: var(--bg-card);
+  color: var(--ink);
+}
+.arrow {
+  font-size: 19px;
+  line-height: 0;
+}
+
+/* ---------- shake (motion-gated) ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .shake {
+    animation: shake 0.28s ease;
+  }
+  @keyframes shake {
+    0%,
+    100% {
+      transform: translate(0, 0);
+    }
+    20% {
+      transform: translate(-6px, 3px);
+    }
+    40% {
+      transform: translate(5px, -4px);
+    }
+    60% {
+      transform: translate(-4px, -2px);
+    }
+    80% {
+      transform: translate(3px, 3px);
+    }
+  }
+}
