@@ -101,7 +101,8 @@
 .body {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  text-align: center;
   gap: var(--space-2);
   /* Compact vertical padding so the 404 copy stays a slim header band and the
      game (below) gets the majority of the card height. */
@@ -129,7 +130,7 @@
   letter-spacing: -0.02em;
   line-height: 1.02;
   color: var(--ink);
-  max-width: 22ch;
+  max-width: 80%;
 }
 
 .lead {
@@ -138,7 +139,7 @@
   color: var(--ink-soft);
   font-size: 16px;
   line-height: 1.5;
-  max-width: 46ch;
+  max-width: 80%;
 }
 
 /* ---------- primary home link (mirrors apps/web Button variant="primary") ---------- */
