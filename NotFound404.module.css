@@ -102,10 +102,10 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--space-3);
+  gap: var(--space-2);
   /* Compact vertical padding so the 404 copy stays a slim header band and the
      game (below) gets the majority of the card height. */
-  padding: var(--space-5) var(--space-5);
+  padding: var(--space-4) var(--space-5);
   flex: 0 0 auto;
 }
 
@@ -115,7 +115,7 @@
 .bigNumber {
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: 76px;
+  font-size: 56px;
   line-height: 0.82;
   letter-spacing: -0.05em;
   color: var(--ink);
@@ -125,7 +125,7 @@
   margin: 0;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: 30px;
+  font-size: 24px;
   letter-spacing: -0.02em;
   line-height: 1.02;
   color: var(--ink);
@@ -236,10 +236,10 @@
     gap: var(--space-3);
   }
   .bigNumber {
-    font-size: 72px;
+    font-size: 48px;
   }
   .h1 {
-    font-size: 26px;
+    font-size: 22px;
   }
 }
 

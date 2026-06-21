@@ -1,6 +1,6 @@
 {
   "name": "@joboostr/notfound",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "One branded, brutalist 404 experience shared by every joboostr site. Ships a framework-neutral static <NotFound404> shell (Czech copy, traveling design tokens, self-loaded Archivo + Space Mono fonts) plus an optional canvas-game slot. Distributed as a git dependency (github:joboostr/joboostr-notfound#<tag>), pinned by tag.",
   "license": "UNLICENSED",
   "type": "module",
