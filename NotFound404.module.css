@@ -1,0 +1,220 @@
+/* NotFound404.module.css — tokens-driven, ZERO literal hex.
+ *
+ * Every color / spacing / shadow / border value is a design token from
+ * notfound-tokens.css (which travels with the package). The ONE sanctioned
+ * literal is `color: #fff` on the orange CTA — the documented white-on-orange
+ * brand exception (mirrors apps/web Button.module.css:37-40, operator-accepted
+ * 2026-05-24). No other hex survives.
+ *
+ * CONTRAST FIX: the prototype used --ink-muted on the cream card (~2.6:1, fails
+ * WCAG AA 4.5:1 for body text). Body copy here uses --ink-soft (the soft-ink
+ * token on the white card surface, ~7.4:1) so it passes. --ink-muted is not
+ * used anywhere in this file.
+ *
+ * Neo-brutalism: 3px ink borders + hard zero-blur offset shadows. No soft drop
+ * shadows. Fixed-px display sizing with tight negative tracking (the canonical
+ * large-display idiom — the design system uses fixed px breakpoints, not clamp). */
+
+.root {
+  /* Self-contained surface: this element is the package's own font-var root
+     (the next/font className lands here) AND paints its own background, so the
+     shell looks right even on a host whose <body> styles differ. */
+  min-height: 100dvh;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+.card {
+  width: 100%;
+  max-width: 720px;
+  background: var(--bg-card);
+  border: var(--border);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- top bar: brand + error tag ---------- */
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: var(--border);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: -0.035em;
+  text-transform: lowercase;
+  color: var(--ink);
+  line-height: 1;
+}
+.brandWordmark::after {
+  content: '.';
+  color: var(--orange);
+  margin-left: -2px;
+}
+.brandTile {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  display: block;
+}
+.brandTile svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Inverted mono badge — the canonical brutalist tag idiom: ink ground, orange
+   text, mono, tracked, uppercase (mirrors the design-system count-badge). */
+.errorTag {
+  flex: none;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--orange);
+  background: var(--ink);
+  border: var(--border-thin);
+  box-shadow: var(--shadow-xs);
+  padding: var(--space-1) var(--space-3);
+}
+
+/* ---------- body ---------- */
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-7) var(--space-5);
+}
+
+/* Big "404" numeral — fixed-px Archivo-900, tight negative tracking (canonical
+   large-display idiom). Solid ink; presentational (aria-hidden in the markup)
+   so it is never the page's heading. */
+.bigNumber {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 110px;
+  line-height: 0.82;
+  letter-spacing: -0.05em;
+  color: var(--ink);
+}
+
+.h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 30px;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+  color: var(--ink);
+  max-width: 22ch;
+}
+
+.lead {
+  margin: 0;
+  /* CONTRAST FIX: --ink-soft (not --ink-muted) -> passes WCAG AA 4.5:1. */
+  color: var(--ink-soft);
+  font-size: 16px;
+  line-height: 1.5;
+  max-width: 46ch;
+}
+
+/* ---------- primary home link (mirrors apps/web Button variant="primary") ---------- */
+.homeLink {
+  margin-top: var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 16px;
+  text-decoration: none;
+  cursor: pointer;
+  border: var(--border);
+  background: var(--orange);
+  color: #fff; /* SANCTIONED white-on-orange brand exception (see file header) */
+  box-shadow: var(--shadow-md);
+  transition: transform 80ms ease, box-shadow 80ms ease, background 80ms ease;
+}
+.homeLink:hover {
+  background: var(--orange-dark);
+  color: #fff; /* keep white on the darker orange (same sanctioned exception) */
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-lg);
+}
+.homeLink:active {
+  transform: translate(2px, 2px);
+  box-shadow: var(--shadow-xs);
+}
+/* Proven focus ring (apps/web Button.module.css:30-33). */
+.homeLink:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 3px;
+}
+.arrow {
+  font-size: 19px;
+  line-height: 0;
+}
+
+/* ---------- game / canvas slot ---------- */
+/* Empty by default = static no-JS floor. When W-2's <Game404> mounts here it
+   sizes itself; the static shell carries no canvas, so no-JS shows nothing
+   extra. The slot is aria-hidden in the markup (decoration only). */
+.canvasSlot:empty {
+  display: none;
+}
+.canvasSlot {
+  border-top: var(--border);
+}
+
+/* ---------- responsive: 375px static shell ---------- */
+@media (max-width: 680px) {
+  .root {
+    padding: var(--space-3);
+  }
+  .body {
+    padding: var(--space-6) var(--space-4);
+  }
+  .bigNumber {
+    font-size: 84px;
+  }
+  .h1 {
+    font-size: 24px;
+  }
+  /* full-width CTA on phones */
+  .homeLink {
+    width: 100%;
+  }
+}
+
+/* ---------- reduced-motion hard-off ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .homeLink {
+    transition: none;
+  }
+  .homeLink:hover,
+  .homeLink:active {
+    transform: none;
+  }
+}

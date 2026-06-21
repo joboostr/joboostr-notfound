@@ -1,0 +1,81 @@
+/* notfound-tokens.css — the design tokens that TRAVEL WITH the package.
+ *
+ * WHY this file exists: @joboostr/tokens is `private:true` + `workspace:*`, so a
+ * git-dependency consumer cannot resolve it. Rather than depend on it, the 404
+ * package BUNDLES the subset of :root variables its component uses, copied
+ * verbatim (values only) from the canonical source of truth:
+ *   joboostr-dashboard/packages/tokens/tokens.css  (read 2026-06-21)
+ *
+ * Visual genre: neo-brutalism — the --shadow-* tokens are HARD offset shadows,
+ * zero blur (e.g. 5px 5px 0 var(--ink)); never a soft/blurred drop shadow. The
+ * hard 5px-5px-0 edge is this UI's brutalist signature.
+ *
+ * Scope: variables are declared on :root so the shell resolves them whether the
+ * host provides them or not; if a host ALSO defines these tokens, identical
+ * values mean no visual conflict.
+ *
+ * FONT TOKENS — OQ-3 (Archivo + Space Mono): unlike the dashboard's current
+ * tokens.css (whose 2026-06-10 note collapsed --font-mono onto Archivo), this
+ * 404 page restores Space Mono for the mono tag/labels. --font-archivo /
+ * --font-space-mono are provided by notFoundFonts.ts (next/font/google) on the
+ * package's own root element; the stacks below carry system fallbacks so the
+ * page still renders if a font var is absent on a given surface. */
+:root {
+  /* surfaces */
+  --bg: #fcfbf8;
+  --bg-card: #ffffff;
+
+  /* ink scale */
+  --ink: #0c0a09;
+  --ink-soft: #56544f;
+
+  /* brand orange */
+  --orange: #fb6a2d;
+  --orange-dark: #e85c20;
+  --orange-soft: #fff4ec;
+
+  /* status accent used only as a game/HUD highlight token (W-2 may reuse) */
+  --gold: #ffd23f; /* = design-v3 --yellow / --status-interview */
+
+  /* borders + hard offset shadows (zero blur — brutalist signature) */
+  --border:      3px solid var(--ink);
+  --border-thin: 2px solid var(--ink);
+  --shadow-xs: 2px 2px 0 var(--ink);
+  --shadow-sm: 3px 3px 0 var(--ink);
+  --shadow-md: 5px 5px 0 var(--ink);
+  --shadow-lg: 8px 8px 0 var(--ink);
+  --shadow-orange-md: 5px 5px 0 var(--orange);
+
+  /* 4px-based spacing ramp */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  24px;
+  --space-6:  32px;
+  --space-7:  48px;
+  --space-8:  64px;
+
+  /* fonts — OQ-3: Archivo (display/body) + Space Mono (mono).
+     A bare :root fallback stack so the page still renders if the next/font vars
+     never land (graceful degradation). The REAL mapping that consumes
+     --font-archivo / --font-space-mono is scoped to the package root below. */
+  --font-body:    'Archivo', system-ui, -apple-system, sans-serif;
+  --font-display: 'Archivo', system-ui, -apple-system, sans-serif;
+  --font-mono:    'Space Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+}
+
+/* CRITICAL (CSS custom-property scoping): --font-archivo / --font-space-mono are
+   set by next/font (notFoundFonts.ts) on the PACKAGE'S OWN ROOT element, NOT on
+   :root/<html> — recon proved the hosts do not provide them. A `var()` reference
+   resolves the referenced property AS SEEN ON THE ELEMENT WHERE IT IS COMPUTED;
+   declaring --font-mono on :root (where --font-space-mono is undefined) would
+   make the whole declaration invalid. So the loader-consuming mapping is scoped
+   to [data-jb-notfound] (the <NotFound404> root carries this attribute), where
+   the next/font className also lives. Verified live in the W-1 Playwright harness
+   (getComputedStyle reported "Space Mono" only once this scoping was added). */
+[data-jb-notfound] {
+  --font-body:    var(--font-archivo), 'Archivo', system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-archivo), 'Archivo', system-ui, -apple-system, sans-serif;
+  --font-mono:    var(--font-space-mono), 'Space Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+}
