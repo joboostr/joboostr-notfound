@@ -43,9 +43,11 @@
   --good: #34d399; /* game-only: healthy patience (green) */
   --bad:  #ef4444; /* game-only: rejection / low patience (red) */
 
-  /* borders + hard offset shadows (zero blur — brutalist signature) */
-  --border:      3px solid var(--ink);
-  --border-thin: 2px solid var(--ink);
+  /* borders + hard offset shadows (zero blur — brutalist signature).
+     Border thinned 3px→2px / 2px→1.5px to match the canonical sheet
+     (founder request 2026-06-24; this package missed that change). */
+  --border:      2px solid var(--ink);
+  --border-thin: 1.5px solid var(--ink);
   --shadow-xs: 2px 2px 0 var(--ink);
   --shadow-sm: 3px 3px 0 var(--ink);
   --shadow-md: 5px 5px 0 var(--ink);
