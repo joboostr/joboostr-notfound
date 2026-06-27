@@ -1,39 +1,24 @@
-/* notfound-tokens.css — the design tokens that TRAVEL WITH the package.
+/* notfound-tokens.css — design tokens that travel with the 404 package.
  *
- * WHY this file exists: @joboostr/tokens is `private:true` + `workspace:*`, so a
- * git-dependency consumer cannot resolve it. Rather than depend on it, the 404
- * package BUNDLES the subset of :root variables its component uses, copied
- * verbatim (values only) from the canonical source of truth:
- *   joboostr-dashboard/packages/tokens/tokens.css  (read 2026-06-21)
+ * The shared palette (surfaces, ink, orange, borders, hard offset shadows,
+ * spacing ramp) now comes from the ONE source of truth — @joboostr/tokens,
+ * imported below. No more hand-copied snapshot that drifts from canonical.
+ * (Historically this package inlined a copy because @joboostr/tokens was
+ * workspace-only and a git-dependency consumer couldn't resolve it; it is now a
+ * published package, provided by the host app via the peer dependency, so the
+ * @import resolves in every consumer.)
  *
- * Visual genre: neo-brutalism — the --shadow-* tokens are HARD offset shadows,
- * zero blur (e.g. 5px 5px 0 var(--ink)); never a soft/blurred drop shadow. The
- * hard 5px-5px-0 edge is this UI's brutalist signature.
- *
- * Scope: variables are declared on :root so the shell resolves them whether the
- * host provides them or not; if a host ALSO defines these tokens, identical
- * values mean no visual conflict.
- *
- * FONT TOKENS — OQ-3 (Archivo + Space Mono): unlike the dashboard's current
- * tokens.css (whose 2026-06-10 note collapsed --font-mono onto Archivo), this
- * 404 page restores Space Mono for the mono tag/labels. --font-archivo /
- * --font-space-mono are provided by notFoundFonts.ts (next/font/google) on the
- * package's own root element; the stacks below carry system fallbacks so the
- * page still renders if a font var is absent on a given surface. */
+ * This file keeps ONLY what is genuinely notfound-specific:
+ *   1. the W-2 canvas-game accent colors (--gold / --good / --bad), and
+ *   2. the font stacks — intentionally DIFFERENT from canonical. The 404 page
+ *      restores Space Mono for its mono tag/labels and keeps a MONOSPACE
+ *      fallback; canonical --font-mono falls back to Archivo (sans), which would
+ *      regress the game HUD. --font-archivo / --font-space-mono are provided by
+ *      notFoundFonts.ts (next/font/google) on the package's own root element.
+ */
+@import "@joboostr/tokens/tokens.css";
+
 :root {
-  /* surfaces */
-  --bg: #fcfbf8;
-  --bg-card: #ffffff;
-
-  /* ink scale */
-  --ink: #0c0a09;
-  --ink-soft: #56544f;
-
-  /* brand orange */
-  --orange: #fb6a2d;
-  --orange-dark: #e85c20;
-  --orange-soft: #fff4ec;
-
   /* status accents used only by the W-2 canvas game / HUD (not the static shell).
      --gold = the rare "dream job" + mid-patience bar; --good = healthy-patience
      green; --bad = rejection red / low-patience bar + danger vignette. Values
@@ -43,31 +28,12 @@
   --good: #34d399; /* game-only: healthy patience (green) */
   --bad:  #ef4444; /* game-only: rejection / low patience (red) */
 
-  /* borders + hard offset shadows (zero blur — brutalist signature).
-     Border thinned 3px→2px / 2px→1.5px to match the canonical sheet
-     (founder request 2026-06-24; this package missed that change). */
-  --border:      2px solid var(--ink);
-  --border-thin: 1.5px solid var(--ink);
-  --shadow-xs: 2px 2px 0 var(--ink);
-  --shadow-sm: 3px 3px 0 var(--ink);
-  --shadow-md: 5px 5px 0 var(--ink);
-  --shadow-lg: 8px 8px 0 var(--ink);
-  --shadow-orange-md: 5px 5px 0 var(--orange);
-
-  /* 4px-based spacing ramp */
-  --space-1:  4px;
-  --space-2:  8px;
-  --space-3:  12px;
-  --space-4:  16px;
-  --space-5:  24px;
-  --space-6:  32px;
-  --space-7:  48px;
-  --space-8:  64px;
-
-  /* fonts — OQ-3: Archivo (display/body) + Space Mono (mono).
-     A bare :root fallback stack so the page still renders if the next/font vars
-     never land (graceful degradation). The REAL mapping that consumes
-     --font-archivo / --font-space-mono is scoped to the package root below. */
+  /* fonts — OQ-3: Archivo (display/body) + Space Mono (mono). Bare :root fallback
+     stack so the page still renders if the next/font vars never land (graceful
+     degradation). Kept here rather than inherited from @joboostr/tokens because
+     canonical --font-mono falls back to Archivo/sans, whereas the 404 game needs
+     a monospace fallback. The REAL mapping that consumes --font-archivo /
+     --font-space-mono is scoped to the package root below. */
   --font-body:    'Archivo', system-ui, -apple-system, sans-serif;
   --font-display: 'Archivo', system-ui, -apple-system, sans-serif;
   --font-mono:    'Space Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
