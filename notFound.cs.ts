@@ -1,12 +1,9 @@
 // notFound.cs.ts
 // Czech copy module for the shared 404 page. Mirrors the hand-rolled
 // lib/copy/cs/*.ts shape used across joboostr (a typed const object, NO inline
-// visible strings in the .tsx — project rule G-6). Launch is Czech-only; an
-// English stub can be added later as a sibling notFound.en.ts if a second locale
-// ships. This is UI copy, so it lives with the component, not in a host repo.
-//
-// `as const` makes every string a literal type so consumers get exact-shape
-// autocomplete and the component can type its `copy` prop against NotFoundCopy.
+// visible strings in the .tsx — project rule G-6). The English sibling is
+// notFound.en.ts; consumers pick the module by locale. This is UI copy, so it
+// lives with the component, not in a host repo.
 
 export const notFoundCs = {
   /** Small brutalist tag above the headline, e.g. an "Chyba 404" badge. */
@@ -23,6 +20,10 @@ export const notFoundCs = {
   brandLabel: 'joboostr',
 } as const
 
-export type NotFoundCopy = typeof notFoundCs
+// Widened to plain strings (the shared Record<Locale, Shape> parity pattern):
+// `as const` literal types would reject any second locale's strings. The key
+// set still comes from notFoundCs, so shape drift is a compile error in every
+// sibling module; notFoundCs itself still satisfies this exactly.
+export type NotFoundCopy = { [K in keyof typeof notFoundCs]: string }
 
 export default notFoundCs

@@ -1,6 +1,6 @@
 {
   "name": "@joboostr/notfound",
-  "version": "0.2.8",
+  "version": "0.3.0",
   "description": "One branded, brutalist 404 experience shared by every joboostr site. Ships a framework-neutral static <NotFound404> shell (Czech copy, traveling design tokens, self-loaded Archivo + Space Mono fonts) plus an optional canvas-game slot. Distributed as a git dependency (github:joboostr/joboostr-notfound#<tag>), pinned by tag.",
   "license": "UNLICENSED",
   "type": "module",
@@ -21,6 +21,10 @@
       "types": "./notFound.cs.ts",
       "default": "./notFound.cs.ts"
     },
+    "./copy/en": {
+      "types": "./notFound.en.ts",
+      "default": "./notFound.en.ts"
+    },
     "./Game404": {
       "types": "./Game404.tsx",
       "default": "./Game404.tsx"
@@ -37,6 +41,7 @@
     "NotFoundGame.module.css",
     "notFoundFonts.ts",
     "notFound.cs.ts",
+    "notFound.en.ts",
     "Game404.tsx",
     "Game404Dynamic.tsx",
     "README.md"

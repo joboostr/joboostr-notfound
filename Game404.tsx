@@ -34,10 +34,35 @@
 import { useEffect, useRef } from 'react'
 import styles from './NotFoundGame.module.css'
 
-// All in-engine localized flavor text is UI copy (project rule: Czech-first).
-// Kept inline here (it is canvas-drawn text + overlay labels, not the shell copy
-// module) — short, game-only, Czech.
-const CS = {
+// All in-engine localized flavor text is UI copy (canvas-drawn text + overlay
+// labels, not the shell copy module). It arrives via the optional `copy` prop;
+// the Czech object below is the default so existing consumers are unchanged.
+// The English sibling (game404En) lives in notFound.en.ts next to the shell copy.
+export interface Game404Copy {
+  startTitle: string
+  startSub: string
+  startBtn: string
+  keysMove: string
+  overTitle: string
+  overSubPrefix: string
+  overSubMid: string
+  overNewBest: string
+  overBest: string
+  retryBtn: string
+  goHome: string
+  hudScore: string
+  hudBest: string
+  hudPatience: string
+  hudStreak: string
+  // canvas-drawn floaters
+  fxMissed: string
+  fxRejected: string
+  fxDream: string
+  fxPlus: string
+  youTag: string
+}
+
+export const game404Cs: Game404Copy = {
   startTitle: 'SBÍREJ NABÍDKY PRÁCE',
   startSub:
     'Chytej nabídky práce, ať ti neklesne trpělivost, lov vzácné vysněné práce za velký bonus a nikdy nechytej odmítnutí. Zrychluje se to — jak daleko dojdeš, rozhodne tvá zručnost.',
@@ -54,13 +79,12 @@ const CS = {
   hudBest: 'rekord · ',
   hudPatience: 'Trpělivost',
   hudStreak: 'Série',
-  // canvas-drawn floaters
   fxMissed: 'MINUL',
   fxRejected: 'ODMÍTNUTO',
   fxDream: 'SEN +1',
   fxPlus: '+1',
   youTag: 'TY',
-} as const
+}
 
 type Kind = 'job' | 'dream' | 'spam'
 
@@ -78,7 +102,7 @@ type Palette = {
   fontDisplay: string
 }
 
-export default function Game404() {
+export default function Game404({ copy = game404Cs }: { copy?: Game404Copy } = {}) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const overlayRef = useRef<HTMLDivElement | null>(null)
   const rafRef = useRef<number | null>(null)
@@ -268,7 +292,7 @@ export default function Game404() {
         combo = 1
         comboTimer = 0
         burst(it.x + it.w / 2, it.y + it.h / 2, palette.bad, 14)
-        floatText(it.x + it.w / 2, it.y, CS.fxRejected, palette.bad)
+        floatText(it.x + it.w / 2, it.y, copy.fxRejected, palette.bad)
         shakeCard()
       } else {
         const dream = it.kind === 'dream'
@@ -277,7 +301,7 @@ export default function Game404() {
         score += 1
         patience = Math.min(100, patience + (dream ? 12 : 1.5))
         burst(it.x + it.w / 2, it.y + it.h / 2, it.color, dream ? 22 : 12)
-        floatText(it.x + it.w / 2, it.y, dream ? CS.fxDream : CS.fxPlus, dream ? palette.orangeDark : palette.ink)
+        floatText(it.x + it.w / 2, it.y, dream ? copy.fxDream : copy.fxPlus, dream ? palette.orangeDark : palette.ink)
       }
     }
 
@@ -317,7 +341,7 @@ export default function Game404() {
             patience = Math.max(0, patience - 6)
             combo = 1
             comboTimer = 0
-            floatText(it.x + it.w / 2, H - 26, CS.fxMissed, palette.inkSoft)
+            floatText(it.x + it.w / 2, H - 26, copy.fxMissed, palette.inkSoft)
           }
           items.splice(i, 1)
         }
@@ -350,7 +374,7 @@ export default function Game404() {
           }
         }
         if (overScore) overScore.textContent = String(score)
-        if (overBest) overBest.textContent = isNewBest ? CS.overNewBest : best > 0 ? CS.overBest + best : ''
+        if (overBest) overBest.textContent = isNewBest ? copy.overNewBest : best > 0 ? copy.overBest + best : ''
         show('over')
       }
       updateHud()
@@ -358,7 +382,7 @@ export default function Game404() {
 
     function updateHud() {
       if (scoreVal) scoreVal.textContent = String(score)
-      if (bestVal) bestVal.textContent = CS.hudBest + Math.max(best, score)
+      if (bestVal) bestVal.textContent = copy.hudBest + Math.max(best, score)
       if (patienceVal) patienceVal.textContent = Math.round(patience) + '%'
       if (patienceBar) {
         patienceBar.style.width = patience + '%'
@@ -461,7 +485,7 @@ export default function Game404() {
       ctx!.font = `700 11px ${palette.fontMono}`
       ctx!.textAlign = 'center'
       ctx!.textBaseline = 'middle'
-      ctx!.fillText(CS.youTag, x + w / 2, y + h - 11)
+      ctx!.fillText(copy.youTag, x + w / 2, y + h - 11)
     }
 
     function draw() {
@@ -629,16 +653,16 @@ export default function Game404() {
     <div className={styles.gameCard} data-jb-game-card>
       <div className={styles.hud} ref={overlayRef}>
         <div className={styles.hudXp}>
-          <div className={styles.hudLabel}>{CS.hudScore}</div>
+          <div className={styles.hudLabel}>{copy.hudScore}</div>
           <div className={styles.hudVal} data-score>
             0
           </div>
           <div className={styles.hudBest} data-best>
-            {CS.hudBest}0
+            {copy.hudBest}0
           </div>
         </div>
         <div className={styles.hudCell}>
-          <div className={styles.hudLabel}>{CS.hudPatience}</div>
+          <div className={styles.hudLabel}>{copy.hudPatience}</div>
           <div className={styles.hudVal} data-patience>
             100%
           </div>
@@ -647,7 +671,7 @@ export default function Game404() {
           </div>
         </div>
         <div className={styles.hudCellNarrow}>
-          <div className={styles.hudLabel}>{CS.hudStreak}</div>
+          <div className={styles.hudLabel}>{copy.hudStreak}</div>
           <div className={styles.hudVal} data-combo>
             ×1
           </div>
@@ -658,8 +682,8 @@ export default function Game404() {
           <div className={styles.danger} data-danger />
 
           <div className={styles.overlay} data-overlay="start">
-            <div className={styles.oTitle}>{CS.startTitle}</div>
-            <p className={styles.oSub}>{CS.startSub}</p>
+            <div className={styles.oTitle}>{copy.startTitle}</div>
+            <p className={styles.oSub}>{copy.startSub}</p>
             <div className={styles.keys}>
               <span>
                 <kbd>◀</kbd> <kbd>▶</kbd>
@@ -667,27 +691,27 @@ export default function Game404() {
               <span>
                 <kbd>A</kbd> <kbd>D</kbd>
               </span>
-              <span>{CS.keysMove}</span>
+              <span>{copy.keysMove}</span>
             </div>
             <button type="button" className={styles.btn} data-start-btn>
-              {CS.startBtn} <span className={styles.arrow}>→</span>
+              {copy.startBtn} <span className={styles.arrow}>→</span>
             </button>
           </div>
 
           <div className={styles.overlay} data-overlay="over" hidden>
-            <div className={styles.oTitle}>{CS.overTitle}</div>
+            <div className={styles.oTitle}>{copy.overTitle}</div>
             <p className={styles.oSub}>
-              {CS.overSubPrefix}
+              {copy.overSubPrefix}
               <b data-over-score>0</b>
-              {CS.overSubMid}
+              {copy.overSubMid}
               <b className={styles.overBest} data-over-best />
             </p>
             <div className={styles.overActions}>
               <button type="button" className={styles.btn} data-retry-btn>
-                {CS.retryBtn} <span className={styles.arrow}>↻</span>
+                {copy.retryBtn} <span className={styles.arrow}>↻</span>
               </button>
               <a className={`${styles.btn} ${styles.btnGhost}`} href="/">
-                {CS.goHome}
+                {copy.goHome}
               </a>
             </div>
           </div>
