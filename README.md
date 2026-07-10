@@ -16,6 +16,7 @@ npm i github:joboostr/joboostr-notfound#v0.2.0
 | `@joboostr/notfound/tokens.css` | The design tokens that travel **inside** the package (so a consumer needn't resolve the private `@joboostr/tokens` workspace package). Import once. |
 | `@joboostr/notfound/fonts` | `notFoundFontClass` + the `archivo` / `spaceMono` loaders (self-loaded via `next/font/google` — the package does **not** rely on the host `<html>` for font vars). |
 | `@joboostr/notfound/copy` | `notFoundCs` — the Czech copy module (and its `NotFoundCopy` type). |
+| `@joboostr/notfound/copy/en` | `notFoundEn` — the English copy module, plus `game404En` (English `Game404Copy` for the game island). Same `NotFoundCopy` shape. |
 | `@joboostr/notfound/Game404` | The optional canvas game island (`'use client'` — the "collect job offers" engine). Self-gates: never runs on ≤680px or `prefers-reduced-motion: reduce`. |
 | `@joboostr/notfound/Game404Dynamic` | A `'use client'` wrapper that lazy-loads `Game404` via `next/dynamic({ ssr:false })` so the engine lands in a separate client chunk. **This is what a (server-rendered) consumer drops into `gameSlot`** — a raw `next/dynamic({ssr:false})` is not allowed in a Server Component. |
 

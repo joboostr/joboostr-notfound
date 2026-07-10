@@ -31,15 +31,16 @@
 
 import dynamic from 'next/dynamic'
 import { useEffect, useState } from 'react'
+import type { Game404Copy } from './Game404.tsx'
 
 const Game404 = dynamic(() => import('./Game404'), { ssr: false, loading: () => null })
 
-export default function Game404Dynamic() {
+export default function Game404Dynamic({ copy }: { copy?: Game404Copy } = {}) {
   const [enabled, setEnabled] = useState(false)
   useEffect(() => {
     const desktop = window.matchMedia('(min-width: 681px)').matches
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (desktop && !reduce) setEnabled(true)
   }, [])
-  return enabled ? <Game404 /> : null
+  return enabled ? <Game404 copy={copy} /> : null
 }
