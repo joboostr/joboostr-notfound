@@ -13,25 +13,25 @@
 //   - Multiple fonts: import each loader, call at module scope, combine the
 //     `.variable` classNames on one element (the "CSS Variables" pattern).
 //   - Two-word font names use an underscore: `Space Mono` -> `Space_Mono`.
-//   - Variable fonts (Archivo, wght 100..900) omit `weight`.
+//   - Variable fonts (Inter, wght 100..900) omit `weight`.
 //   - Non-variable fonts (Space Mono ships 400 + 700 only) MUST specify weight.
 //
 // next/font downloads + self-hosts the files at build time (no runtime Google
 // request), so this is privacy-safe and adds zero render-blocking network calls.
 
-import { Archivo, Space_Mono } from 'next/font/google'
+import { Inter, Space_Mono } from 'next/font/google'
 
-// Archivo = the product's one typeface. Variable font: omit `weight` to load the
-// full 100..900 axis in a single optimized payload. Exposes --font-archivo, which
+// Inter = the product's one typeface. Variable font: omit `weight` to load the
+// full 100..900 axis in a single optimized payload. Exposes --font-inter, which
 // notfound-tokens.css maps onto --font-body / --font-display.
-export const archivo = Archivo({
-  variable: '--font-archivo',
+export const inter = Inter({
+  variable: '--font-inter',
   subsets: ['latin', 'latin-ext'],
   display: 'swap',
 })
 
 // Space Mono = the "typewriter" face used for the brutalist tag / mono labels on
-// this page (OQ-3: Archivo + Space Mono). It is a NON-variable font, so weight is
+// this page (OQ-3: Inter + Space Mono). It is a NON-variable font, so weight is
 // required; 400 (body mono) + 700 (bold mono labels) cover every weight the CSS
 // uses. Exposes --font-space-mono, which notfound-tokens.css maps onto --font-mono.
 export const spaceMono = Space_Mono({
@@ -43,13 +43,13 @@ export const spaceMono = Space_Mono({
 
 /**
  * The combined className to apply to the package's own root element. It sets BOTH
- * --font-archivo and --font-space-mono so notfound-tokens.css can resolve every
+ * --font-inter and --font-space-mono so notfound-tokens.css can resolve every
  * --font-* token regardless of what the host <html> provides.
  *
  * Usage in a consumer's not-found.tsx:
  *   import { notFoundFontClass } from '@joboostr/notfound/fonts'
  *   <NotFound404 copy={...} homeHref="/" className={notFoundFontClass} />
  */
-export const notFoundFontClass = `${archivo.variable} ${spaceMono.variable}`
+export const notFoundFontClass = `${inter.variable} ${spaceMono.variable}`
 
 export default notFoundFontClass

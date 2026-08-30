@@ -5,7 +5,7 @@ built and maintained **once**. Distributed as a **git dependency** (pinned by
 tag), not via npm.
 
 ```
-npm i github:joboostr/joboostr-notfound#v0.2.0
+npm i github:joboostr/joboostr-notfound#v0.4.0
 ```
 
 ## What it ships
@@ -14,7 +14,7 @@ npm i github:joboostr/joboostr-notfound#v0.2.0
 | --- | --- |
 | `@joboostr/notfound` | `<NotFound404>` — the framework-neutral, always-on static brutalist 404 shell (Czech copy, one `<h1>`, home-link-first, an `aria-hidden` canvas slot). No `'use client'`, no `next/link`, no JS dependency for the 404 fact + home link. |
 | `@joboostr/notfound/tokens.css` | The design tokens that travel **inside** the package (so a consumer needn't resolve the private `@joboostr/tokens` workspace package). Import once. |
-| `@joboostr/notfound/fonts` | `notFoundFontClass` + the `archivo` / `spaceMono` loaders (self-loaded via `next/font/google` — the package does **not** rely on the host `<html>` for font vars). |
+| `@joboostr/notfound/fonts` | `notFoundFontClass` + the `inter` / `spaceMono` loaders (self-loaded via `next/font/google` — the package does **not** rely on the host `<html>` for font vars). |
 | `@joboostr/notfound/copy` | `notFoundCs` — the Czech copy module (and its `NotFoundCopy` type). |
 | `@joboostr/notfound/copy/en` | `notFoundEn` — the English copy module, plus `game404En` (English `Game404Copy` for the game island). Same `NotFoundCopy` shape. |
 | `@joboostr/notfound/Game404` | The optional canvas game island (`'use client'` — the "collect job offers" engine). Self-gates: never runs on ≤680px or `prefers-reduced-motion: reduce`. |
@@ -77,6 +77,8 @@ consumer's single React/Next copy is used.
 
 ## Versioning
 
-Consumers pin an exact tag (e.g. `#v0.2.0`). Nothing auto-updates; you upgrade
+Consumers pin an exact tag (e.g. `#v0.4.0`). Nothing auto-updates; you upgrade
 only by bumping the pinned tag. `v0.1.0` = static shell + a no-op game stub;
-`v0.2.0` = the static shell + the real playable canvas game.
+`v0.2.0` = the static shell + the real playable canvas game; `v0.3.0` =
+localized copy and shared integration updates; `v0.4.0` = Inter replaces
+Archivo in the self-contained font loader.

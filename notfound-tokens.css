@@ -12,8 +12,8 @@
  *   1. the W-2 canvas-game accent colors (--gold / --good / --bad), and
  *   2. the font stacks — intentionally DIFFERENT from canonical. The 404 page
  *      restores Space Mono for its mono tag/labels and keeps a MONOSPACE
- *      fallback; canonical --font-mono falls back to Archivo (sans), which would
- *      regress the game HUD. --font-archivo / --font-space-mono are provided by
+ *      fallback; canonical --font-mono falls back to Inter (sans), which would
+ *      regress the game HUD. --font-inter / --font-space-mono are provided by
  *      notFoundFonts.ts (next/font/google) on the package's own root element.
  */
 @import "@joboostr/tokens/tokens.css";
@@ -28,18 +28,18 @@
   --good: #34d399; /* game-only: healthy patience (green) */
   --bad:  #ef4444; /* game-only: rejection / low patience (red) */
 
-  /* fonts — OQ-3: Archivo (display/body) + Space Mono (mono). Bare :root fallback
+  /* fonts — OQ-3: Inter (display/body) + Space Mono (mono). Bare :root fallback
      stack so the page still renders if the next/font vars never land (graceful
      degradation). Kept here rather than inherited from @joboostr/tokens because
-     canonical --font-mono falls back to Archivo/sans, whereas the 404 game needs
-     a monospace fallback. The REAL mapping that consumes --font-archivo /
+     canonical --font-mono falls back to Inter/sans, whereas the 404 game needs
+     a monospace fallback. The REAL mapping that consumes --font-inter /
      --font-space-mono is scoped to the package root below. */
-  --font-body:    'Archivo', system-ui, -apple-system, sans-serif;
-  --font-display: 'Archivo', system-ui, -apple-system, sans-serif;
+  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono:    'Space Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
 }
 
-/* CRITICAL (CSS custom-property scoping): --font-archivo / --font-space-mono are
+/* CRITICAL (CSS custom-property scoping): --font-inter / --font-space-mono are
    set by next/font (notFoundFonts.ts) on the PACKAGE'S OWN ROOT element, NOT on
    :root/<html> — recon proved the hosts do not provide them. A `var()` reference
    resolves the referenced property AS SEEN ON THE ELEMENT WHERE IT IS COMPUTED;
@@ -49,7 +49,7 @@
    the next/font className also lives. Verified live in the W-1 Playwright harness
    (getComputedStyle reported "Space Mono" only once this scoping was added). */
 [data-jb-notfound] {
-  --font-body:    var(--font-archivo), 'Archivo', system-ui, -apple-system, sans-serif;
-  --font-display: var(--font-archivo), 'Archivo', system-ui, -apple-system, sans-serif;
+  --font-body:    var(--font-inter, 'Inter'), system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-inter, 'Inter'), system-ui, -apple-system, sans-serif;
   --font-mono:    var(--font-space-mono), 'Space Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
 }

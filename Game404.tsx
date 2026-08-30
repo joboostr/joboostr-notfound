@@ -24,7 +24,7 @@
 //   - The canvas palette is sourced ONCE at mount via getComputedStyle off the
 //     [data-jb-notfound] root (canvas fillStyle cannot take var(--x)); zero hex
 //     literals survive except the sanctioned white (#fff). Canvas font faces are
-//     the package's Space Mono / Archivo token faces, not the prototype's three
+//     the package's Space Mono / Inter token faces, not the prototype's three
 //     Google fonts.
 //   - BELT-AND-SUSPENDERS GATE: the effect returns early (before scheduling a
 //     single rAF) when the viewport is <=680px OR prefers-reduced-motion:reduce.
@@ -146,10 +146,10 @@ export default function Game404({ copy = game404Cs }: { copy?: Game404Copy } = {
       bad: tok('--bad', 'rgb(236,74,60)'),
       gold: tok('--gold', 'rgb(255,210,63)'),
       white: '#fff', // sanctioned white-on-orange brand exception
-      // Canvas font faces: the package token faces (Space Mono / Archivo), NOT
+      // Canvas font faces: the package token faces (Space Mono / Inter), NOT
       // the prototype's JetBrains Mono / Bricolage Grotesque.
       fontMono: tok('--font-mono', "'Space Mono', ui-monospace, monospace"),
-      fontDisplay: tok('--font-display', "'Archivo', system-ui, sans-serif"),
+      fontDisplay: tok('--font-display', "'Inter', system-ui, sans-serif"),
     })
 
     // ---- engine state (local to this mount) ---------------------------------
