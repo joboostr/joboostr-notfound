@@ -110,7 +110,7 @@
   flex: 0 0 auto;
 }
 
-/* Big "404" numeral — fixed-px Archivo-900, tight negative tracking (canonical
+/* Big "404" numeral — fixed-px Inter-900, tight negative tracking (canonical
    large-display idiom). Solid ink; presentational (aria-hidden in the markup)
    so it is never the page's heading. */
 .bigNumber {
