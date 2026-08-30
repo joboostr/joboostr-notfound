@@ -52,4 +52,9 @@ export const spaceMono = Space_Mono({
  */
 export const notFoundFontClass = `${inter.variable} ${spaceMono.variable}`
 
+// Localized 404s already inherit the host's self-loaded Inter face. They only
+// need the page's intentional Space Mono exception, so this smaller class avoids
+// registering Inter twice while keeping the mono labels self-hosted.
+export const notFoundMonoFontClass = spaceMono.variable
+
 export default notFoundFontClass

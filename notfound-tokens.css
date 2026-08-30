@@ -51,5 +51,5 @@
 [data-jb-notfound] {
   --font-body:    var(--font-inter, 'Inter'), system-ui, -apple-system, sans-serif;
   --font-display: var(--font-inter, 'Inter'), system-ui, -apple-system, sans-serif;
-  --font-mono:    var(--font-space-mono), 'Space Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  --font-mono:    var(--font-space-mono, 'Space Mono'), ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
 }
