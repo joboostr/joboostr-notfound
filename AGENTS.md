@@ -9,12 +9,12 @@ canvas game. Shipped as raw TypeScript at the repo root (no build step; consumer
 
 ## Who uses it (pins on 2026-10-16)
 joboostr-dashboard `apps/web`, joboostr-web and joboostr-cv-builder all pin `#v0.4.1`. Courses
-does not use it. Re-check each app's `package.json` before relying on this list.
+does not use it. Re-check the apps' `package.json` first.
 
 ## Release (only with the founder's go-ahead)
 1. In the PR, bump `version` in `package.json` and add the version to the README's
    "Versioning" list.
-2. After the founder squash-merges, tag that merge commit `vX.Y.Z` (same as the version) and
+2. After the founder squash-merges, tag that merge commit `vX.Y.Z` (= the version) and
    push the tag. Tags are immutable: never move, delete or reuse one.
 3. Re-pin each app in its own PR (`github:joboostr/joboostr-notfound#vX.Y.Z`). Web and
    cv-builder deploy when that PR merges; the dashboard deploys manually.
@@ -33,7 +33,8 @@ own typecheck and tests, and a look at its 404 page on desktop and phone.
 
 ## House rules (same in every joboostr repo)
 1. Vadim, the founder, is non-technical: use plain English, and explain then wait for a yes
-   before anything that writes to a remote service, deploys, publishes or costs money.
+   before anything that creates an account, changes DNS, writes to a remote service, deploys,
+   publishes or costs money.
 2. Commit and PR titles: `<New|Fix|Speed|Tidy|Docs>: <plain sentence>` (no `feat:` / `fix(x):`).
 3. Never `git push`, push a tag or open a PR without asking first.
 4. Never commit, print or paste secrets. Local values are 1Password `op://` references used via
