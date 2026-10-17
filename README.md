@@ -81,4 +81,5 @@ Consumers pin an exact tag (e.g. `#v0.4.1`). Nothing auto-updates; you upgrade
 only by bumping the pinned tag. `v0.1.0` = static shell + a no-op game stub;
 `v0.2.0` = the static shell + the real playable canvas game; `v0.3.0` =
 localized copy and shared integration updates; `v0.4.0` = Inter replaces
-Archivo in the self-contained font loader.
+Archivo in the self-contained font loader; `v0.4.1` = `notFoundMonoFontClass`
+for localized hosts that already load Inter.

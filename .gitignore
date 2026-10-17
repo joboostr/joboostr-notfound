@@ -1,3 +1,11 @@
 node_modules/
 *.tgz
 .DS_Store
+
+# Agent scratch folders (never commit)
+.playwright-mcp/
+tmp/
+Claude outputs/
+.archify-output/
+.superpowers/
+.gpt-loop/
