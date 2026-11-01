@@ -3,12 +3,12 @@
 Read this first; `CLAUDE.md` imports it. Exports, usage and version list: `README.md`.
 
 ## What this is
-The shared branded 404 page for the joboostr apps: a static `NotFound404` shell plus an optional
-canvas game. Shipped as raw TypeScript at the repo root (no build step; consumers list
+The shared branded 404 page for the joboostr apps: a static `NotFound404` shell with a job search
+that works without client code. Shipped as raw TypeScript at the repo root (no build step; consumers list
 `@joboostr/notfound` in `transpilePackages`).
 
-## Who uses it (pins on 2026-10-16)
-joboostr-dashboard `apps/web`, joboostr-web and joboostr-cv-builder all pin `#v0.4.1`. Courses
+## Who uses it (pins on 2026-11-01)
+joboostr-dashboard `apps/web`, joboostr-web and joboostr-cv-builder all pin `#v0.5.0`. Courses
 does not use it. Re-check the apps' `package.json` first.
 
 ## Release (only with the founder's go-ahead)
@@ -27,8 +27,8 @@ own typecheck and tests, and a look at its 404 page on desktop and phone.
 ## Careful
 - `package.json` `files` is an explicit list: a new file must be added there or it will not
   reach the apps.
-- `NotFound404` stays framework-neutral (no `'use client'`, no `next/link`); the game loads
-  only through `Game404Dynamic`, so each app's `not-found.tsx` stays a server component.
+- `NotFound404` stays framework-neutral (no `'use client'`, no `next/link`), so each app's
+  `not-found.tsx` can stay a server component.
 - React and Next are peers; never bundle them.
 
 ## House rules (same in every joboostr repo)

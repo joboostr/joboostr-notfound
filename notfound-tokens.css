@@ -1,55 +1,17 @@
 /* notfound-tokens.css — design tokens that travel with the 404 package.
  *
- * The shared palette (surfaces, ink, orange, borders, hard offset shadows,
- * spacing ramp) now comes from the ONE source of truth — @joboostr/tokens,
- * imported below. No more hand-copied snapshot that drifts from canonical.
- * (Historically this package inlined a copy because @joboostr/tokens was
- * workspace-only and a git-dependency consumer couldn't resolve it; it is now a
- * published package, provided by the host app via the peer dependency, so the
- * @import resolves in every consumer.)
- *
- * This file keeps ONLY what is genuinely notfound-specific:
- *   1. the W-2 canvas-game accent colors (--gold / --good / --bad), and
- *   2. the font stacks — intentionally DIFFERENT from canonical. The 404 page
- *      restores Space Mono for its mono tag/labels and keeps a MONOSPACE
- *      fallback; canonical --font-mono falls back to Inter (sans), which would
- *      regress the game HUD. --font-inter / --font-space-mono are provided by
- *      notFoundFonts.ts (next/font/google) on the package's own root element.
+ * The palette, spacing, radii and borders come from the one source of truth,
+ * @joboostr/tokens, provided by the host through the peer dependency. The
+ * redesign sheet adds the application tokens this page uses and imports the
+ * base tokens itself.
  */
-@import "@joboostr/tokens/tokens.css";
+@import "@joboostr/tokens/redesign.css";
 
-:root {
-  /* status accents used only by the W-2 canvas game / HUD (not the static shell).
-     --gold = the rare "dream job" + mid-patience bar; --good = healthy-patience
-     green; --bad = rejection red / low-patience bar + danger vignette. Values
-     copied from the prototype (prototypes/404-game.html: --good #34d399,
-     --bad #ef4444) so the ported engine reads identically. */
-  --gold: #ffd23f; /* = design-v3 --yellow / --status-interview */
-  --good: #34d399; /* game-only: healthy patience (green) */
-  --bad:  #ef4444; /* game-only: rejection / low patience (red) */
-
-  /* fonts — OQ-3: Inter (display/body) + Space Mono (mono). Bare :root fallback
-     stack so the page still renders if the next/font vars never land (graceful
-     degradation). Kept here rather than inherited from @joboostr/tokens because
-     canonical --font-mono falls back to Inter/sans, whereas the 404 game needs
-     a monospace fallback. The REAL mapping that consumes --font-inter /
-     --font-space-mono is scoped to the package root below. */
-  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
-  --font-display: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-mono:    'Space Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
-}
-
-/* CRITICAL (CSS custom-property scoping): --font-inter / --font-space-mono are
-   set by next/font (notFoundFonts.ts) on the PACKAGE'S OWN ROOT element, NOT on
-   :root/<html> — recon proved the hosts do not provide them. A `var()` reference
-   resolves the referenced property AS SEEN ON THE ELEMENT WHERE IT IS COMPUTED;
-   declaring --font-mono on :root (where --font-space-mono is undefined) would
-   make the whole declaration invalid. So the loader-consuming mapping is scoped
-   to [data-jb-notfound] (the <NotFound404> root carries this attribute), where
-   the next/font className also lives. Verified live in the W-1 Playwright harness
-   (getComputedStyle reported "Space Mono" only once this scoping was added). */
+/* CSS custom-property scoping: a host may set --font-inter on the package's own
+   root element (notFoundFontClass) rather than on <html>. A `var()` reference
+   resolves on the element where the property is computed, so the mapping onto
+   the font roles must be declared on that same element. */
 [data-jb-notfound] {
   --font-body:    var(--font-inter, 'Inter'), system-ui, -apple-system, sans-serif;
   --font-display: var(--font-inter, 'Inter'), system-ui, -apple-system, sans-serif;
-  --font-mono:    var(--font-space-mono, 'Space Mono'), ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
 }

@@ -1,7 +1,7 @@
 {
   "name": "@joboostr/notfound",
-  "version": "0.4.1",
-  "description": "One branded, brutalist 404 experience shared by every joboostr site. Ships a framework-neutral static <NotFound404> shell (Czech copy, traveling design tokens, self-loaded Inter + Space Mono fonts) plus an optional canvas-game slot. Distributed as a git dependency (github:joboostr/joboostr-notfound#<tag>), pinned by tag.",
+  "version": "0.5.0",
+  "description": "One branded 404 page shared by every joboostr site. Ships a framework-neutral static <NotFound404> shell with a working job search (Czech and English copy, traveling design tokens, self-loaded Inter). Distributed as a git dependency (github:joboostr/joboostr-notfound#<tag>), pinned by tag.",
   "license": "UNLICENSED",
   "type": "module",
   "sideEffects": [
@@ -24,26 +24,15 @@
     "./copy/en": {
       "types": "./notFound.en.ts",
       "default": "./notFound.en.ts"
-    },
-    "./Game404": {
-      "types": "./Game404.tsx",
-      "default": "./Game404.tsx"
-    },
-    "./Game404Dynamic": {
-      "types": "./Game404Dynamic.tsx",
-      "default": "./Game404Dynamic.tsx"
     }
   },
   "files": [
     "NotFound404.tsx",
     "NotFound404.module.css",
     "notfound-tokens.css",
-    "NotFoundGame.module.css",
     "notFoundFonts.ts",
     "notFound.cs.ts",
     "notFound.en.ts",
-    "Game404.tsx",
-    "Game404Dynamic.tsx",
     "README.md"
   ],
   "peerDependencies": {

@@ -6,15 +6,23 @@
 // lives with the component, not in a host repo.
 
 export const notFoundCs = {
-  /** Small brutalist tag above the headline, e.g. an "Chyba 404" badge. */
+  /** The error named for screen readers; the numeral itself is decorative. */
   errorTag: 'Chyba 404',
-  /** The single page <h1>. */
-  h1: 'Tahle stránka tě ignoruje. Jako ta práce, co se ti nikdy neozvala.',
-  /** Body paragraph under the headline. */
-  body: 'Stránku, kterou hledáš, tu nemáme — ale tisíce skutečných nabídek ano, jeden klik odsud.',
-  /** Visible label of the primary home link (the first interactive element). */
+  /** First line of the single page <h1>. */
+  h1Top: 'Tuhle stránku',
+  /** Second, orange line of the <h1>. */
+  h1Accent: 'nevidíme ani my.',
+  /** One line under the headline: what most likely happened. */
+  body: 'Odkaz je špatně, nebo nabídka mezitím skončila.',
+  /** Accessible name of the job search field. */
+  searchLabel: 'Hledat pozici',
+  /** Placeholder of the job search field (same as the board). */
+  searchPlaceholder: 'Hledat pozici…',
+  /** Label of the search button (same as the homepage). */
+  searchSubmit: 'Hledat práci',
+  /** Visible label of the quiet link back home. */
   homeLabel: 'Zpět na úvod',
-  /** Accessible label for the home link / brand mark (read by screen readers). */
+  /** Accessible label for the logo link (read by screen readers). */
   homeAriaLabel: 'joboostr — zpět na úvodní stránku',
   /** Wordmark text shown next to the brand mark. */
   brandLabel: 'joboostr',
